@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="srbjor&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang Mysql数据库入门指南">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/Mysql数据库入门指南/index.html">
 <meta property="og:site_name" content="srbjor&#39;s blog">
+<meta property="og:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-04T02:49:45.142Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="srbjor&#39;s blog">
+<meta name="twitter:title" content="golang Mysql数据库入门指南">
+<meta name="twitter:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/04/Mysql数据库入门指南/">
 
 
 
 
 
-  <title>srbjor's blog</title>
+  <title>golang Mysql数据库入门指南 | srbjor's blog</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/04/Mysql数据库入门指南/" itemprop="url">golang Mysql数据库入门指南</a></h1>
+          <h1 class="post-title" itemprop="name headline">golang Mysql数据库入门指南</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>go语言使用数据库的管理时使用<code>database/sql package</code>。</p>
+        <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>go语言使用数据库的管理时使用<code>database/sql package</code>。</p>
 <p>sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。</p>
 <h1 id="2-导入"><a href="#2-导入" class="headerlink" title="2.导入"></a>2.导入</h1><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"database/sql"</span></span><br><span class="line">	<span class="literal">_</span> <span class="string">"github.com/go-sql-driver/mysql"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>使用<code>_别名</code>匿名导入驱动。导入时驱动的初始化函数会调用sql.Register将自己注册在sql包的全局变量sql.Drivers。</p>
@@ -357,8 +356,6 @@
 <p>因为事务保证在它上面执行的查询都由同一个连接来执行，因此事务中的语句必需按顺序一条一条执行。对于返回结果集的查询，结果集必须Close()之后才能进行下一次查询。用户如果尝试在前一条语句的结果还没读完前就执行新的查询，连接就会失去同步。这意味着事务中返回结果集的语句都会占用一次单独的网络往返。</p>
 <h1 id="4-附录"><a href="#4-附录" class="headerlink" title="4. 附录"></a>4. 附录</h1><p><a href="http://go-database-sql.org/" target="_blank" rel="noopener">http://go-database-sql.org/</a> 官方文档网站    </p>
 
-          
-        
       
     </div>
     
@@ -375,12 +372,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -390,10 +387,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -401,6 +399,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -421,8 +423,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -464,6 +475,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-导入"><span class="nav-number">2.</span> <span class="nav-text">2.导入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-访问"><span class="nav-number">3.</span> <span class="nav-text">3.访问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些注意点："><span class="nav-number">3.0.1.</span> <span class="nav-text">一些注意点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单行查询："><span class="nav-number">3.1.</span> <span class="nav-text">单行查询：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据："><span class="nav-number">3.2.</span> <span class="nav-text">修改数据：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务基本操作："><span class="nav-number">3.3.</span> <span class="nav-text">事务基本操作：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务注意事项"><span class="nav-number">3.3.1.</span> <span class="nav-text">事务注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tx的其他应用场景"><span class="nav-number">3.3.2.</span> <span class="nav-text">Tx的其他应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在事务中准备语句"><span class="nav-number">3.4.</span> <span class="nav-text">在事务中准备语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库注意事项："><span class="nav-number">3.5.</span> <span class="nav-text">数据库注意事项：</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#4-附录"><span class="nav-number">4.</span> <span class="nav-text">4. 附录</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -597,6 +624,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
