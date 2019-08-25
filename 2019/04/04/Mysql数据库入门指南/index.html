@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
+<meta name="description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&amp;quot;database/sql&amp;quot;	_ &amp;quot;github.com/go-sql-driver/mysql&amp;quot;) 使用_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang Mysql数据库入门指南">
 <meta property="og:url" content="http://yoursite.com/2019/04/04/Mysql数据库入门指南/index.html">
-<meta property="og:site_name" content="srbjor&#39;s blog">
-<meta property="og:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
+<meta property="og:site_name" content="CL">
+<meta property="og:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&amp;quot;database/sql&amp;quot;	_ &amp;quot;github.com/go-sql-driver/mysql&amp;quot;) 使用_">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-04-04T05:46:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang Mysql数据库入门指南">
-<meta name="twitter:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&quot;database/sql&quot;	_ &quot;github.com/go-sql-driver/mysql&quot;) 使用_别名匿名导入驱动。导入时驱动的初始化函数">
+<meta name="twitter:description" content="1.概述go语言使用数据库的管理时使用database/sql package。 sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。 2.导入1234import (	&amp;quot;database/sql&amp;quot;	_ &amp;quot;github.com/go-sql-driver/mysql&amp;quot;) 使用_">
 
 
 
@@ -97,7 +97,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -105,7 +105,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: 'srbjor'
     },
     algolia: {
       applicationID: '',
@@ -125,7 +125,7 @@
 
 
 
-  <title>golang Mysql数据库入门指南 | srbjor's blog</title>
+  <title>golang Mysql数据库入门指南 | CL</title>
   
 
 
@@ -155,12 +155,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">srbjor's blog</span>
+        <span class="site-title">CL</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">a blog for my chilly luna</p>
       
   </div>
 
@@ -186,6 +186,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
           </a>
         </li>
       
@@ -237,11 +247,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="srbjor">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="srbjor's blog">
+      <meta itemprop="name" content="CL">
     </span>
 
     
@@ -301,9 +311,9 @@
       
         <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>go语言使用数据库的管理时使用<code>database/sql package</code>。</p>
 <p>sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。</p>
-<h1 id="2-导入"><a href="#2-导入" class="headerlink" title="2.导入"></a>2.导入</h1><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"database/sql"</span></span><br><span class="line">	<span class="literal">_</span> <span class="string">"github.com/go-sql-driver/mysql"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1 id="2-导入"><a href="#2-导入" class="headerlink" title="2.导入"></a>2.导入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">	&quot;database/sql&quot;</span><br><span class="line">	_ &quot;github.com/go-sql-driver/mysql&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>使用<code>_别名</code>匿名导入驱动。导入时驱动的初始化函数会调用sql.Register将自己注册在sql包的全局变量sql.Drivers。</p>
-<h1 id="3-访问"><a href="#3-访问" class="headerlink" title="3.访问"></a>3.访问</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	dbw := DbWorker&#123;</span><br><span class="line">		Dsn: <span class="string">"user:password@tcp(127.0.0.1:3306)/test"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	db, err := sql.Open(<span class="string">"mysql"</span>,</span><br><span class="line">		dbw.Dsn)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-访问"><a href="#3-访问" class="headerlink" title="3.访问"></a>3.访问</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	dbw := DbWorker&#123;</span><br><span class="line">		Dsn: &quot;user:password@tcp(127.0.0.1:3306)/test&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">	db, err := sql.Open(&quot;mysql&quot;,</span><br><span class="line">		dbw.Dsn)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		panic(err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	defer db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>sql.Open()用来在加载后创建sql.DB。</p>
 <p>sql.Open有两个参数：</p>
 <p>驱动名称 依赖于特定驱动的写法</p>
@@ -314,10 +324,10 @@
 <li>db.Query会返回结果集Rows和错误。</li>
 </ul>
 <p>每个驱动返回的错误都不一样，用错误字符串来判断错误类型并不是明智的做法，更好的方法是对抽象的错误做Type Assertion，利用驱动提供的更具体的信息来处理错误。当然类型断言也可能产生错误，这也是需要处理的。</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err.(pgx.PgError).Code == <span class="string">"0A000"</span> &#123;</span><br><span class="line">   // <span class="keyword">Do</span> something <span class="keyword">with</span> that <span class="keyword">type</span> <span class="type">or </span>error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if err.(pgx.PgError).Code == &quot;0A000&quot; &#123;</span><br><span class="line">   // Do something with that type or error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>rows.Next()会指明是否还有未读取的数据记录，通常用于迭代结果集。迭代中的错误会导致rows.Next()返回false。</p>
 <p>rows.Scan()用于在迭代中获取一行结果。数据库会使用wire protocal通过TCP/UnixSocket传输数据，对Pg而言，每一行实际上对应一条DataRow消息。Scan接受变量地址，解析DataRow消息并填入相应变量中。因为Go语言是强类型的，所以用户需要创建相应类型的变量并在rows.Scan中传入其指针，Scan函数会根据目标变量的类型执行相应转换。</p>
-<h2 id="单行查询："><a href="#单行查询：" class="headerlink" title="单行查询："></a>单行查询：</h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.QueryRow("<span class="keyword">SELECT</span> <span class="built_in">sum</span>(n) <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> generate_series(<span class="number">1</span>,$<span class="number">1</span>) <span class="keyword">as</span> n) a;", 10).Scan(&amp;<span class="built_in">sum</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="单行查询："><a href="#单行查询：" class="headerlink" title="单行查询："></a>单行查询：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.QueryRow(&quot;SELECT sum(n) FROM (SELECT generate_series(1,$1) as n) a;&quot;, 10).Scan(&amp;sum)</span><br></pre></td></tr></table></figure>
 <h2 id="修改数据："><a href="#修改数据：" class="headerlink" title="修改数据："></a>修改数据：</h2><p>增删改和DDL一般使用Exec，返回结果集合的查询使用Query，但不是绝对的。</p>
 <p>事务：事务是关系型数据库的核心特性。Go中事务（Tx）是一个持有数据库连接的对象，它允许用户在同一个连接上执行上面提到的各类操作。</p>
 <p>准备：(prepare) </p>
@@ -396,6 +406,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/25/frp实现内网端口映射至公网和windows开机自启服务/" rel="prev" title="frp实现内网端口映射至公网和windows开机自启服务">
+                frp实现内网端口映射至公网和windows开机自启服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
       
@@ -457,6 +483,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg" alt="srbjor">
+            
               <p class="site-author-name" itemprop="name">srbjor</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -468,7 +496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -482,6 +510,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/srbjor" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:srbjor@hotmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -529,7 +573,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">All rights reserved</span>
+  <span class="author" itemprop="copyrightHolder">srbjor</span>
 
   
 </div>
@@ -538,6 +582,8 @@
 
 
 
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -636,6 +682,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
