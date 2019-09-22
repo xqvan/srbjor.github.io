@@ -239,6 +239,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/家用邮件发送服务器接口实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="srbjor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/家用邮件发送服务器接口实现/" itemprop="url">家用邮件发送服务器接口实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-23T00:29:00+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="调用方式"><a href="#调用方式" class="headerlink" title="调用方式"></a>调用方式</h2><p>端口设置为：40025</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 调用接口 --&gt;</span><br><span class="line">http://192.168.66.51:40025/webMailTo?address=fan_xq@qq.com&amp;subject=helloworld&amp;body=&quot;this is test mail&quot;</span><br></pre></td></tr></table></figure>
+
+<p>返回数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"Code"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">"Time"</span>: <span class="string">"2019-09-22T16:32:10Z"</span>,</span><br><span class="line">  <span class="attr">"Message"</span>: <span class="string">"Successful SendToMail"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	<span class="string">"net/smtp"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	MailUser <span class="keyword">string</span> = <span class="string">"tesela@wo.cn"</span></span><br><span class="line">	MailPass <span class="keyword">string</span> = <span class="string">"**********"</span></span><br><span class="line">	MailHost <span class="keyword">string</span> = <span class="string">"smtp.wo.cn"</span></span><br><span class="line">	MailPort <span class="keyword">string</span> = <span class="string">"smtp.wo.cn:25"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> mailRes <span class="keyword">struct</span> &#123;</span><br><span class="line">	Code    <span class="keyword">int</span></span><br><span class="line">	Time    <span class="keyword">string</span></span><br><span class="line">	Message <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MailTo</span><span class="params">(mailAddress, subject, body <span class="keyword">string</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	auth := smtp.PlainAuth(<span class="string">""</span>, MailUser, MailPass, MailHost)</span><br><span class="line">	contentType := <span class="string">"\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"</span></span><br><span class="line"></span><br><span class="line">	msg := []<span class="keyword">byte</span>(<span class="string">"To: "</span> + mailAddress + <span class="string">"\r\n"</span> +</span><br><span class="line">		<span class="string">"From: "</span> + MailUser + <span class="string">"\r\n"</span> +</span><br><span class="line">		<span class="string">"Subject: "</span> + subject +</span><br><span class="line">		contentType + body)</span><br><span class="line"></span><br><span class="line">	sendTo := strings.Split(mailAddress, <span class="string">";"</span>)</span><br><span class="line">	err := smtp.SendMail(MailPort, auth, MailUser, sendTo, msg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Println(<span class="string">"SendToMail:"</span>, err)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>, err.Error()</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		log.Println(<span class="string">"Successful SendToMail"</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, <span class="string">"Successful SendToMail"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">webMailTo</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">	_ = r.ParseForm() <span class="comment">//解析参数，默认是不会解析的</span></span><br><span class="line">	log.Println(r.RemoteAddr, time.Now())</span><br><span class="line"></span><br><span class="line">	code, message := MailTo(r.FormValue(<span class="string">"address"</span>), r.FormValue(<span class="string">"subject"</span>), r.FormValue(<span class="string">"body"</span>))</span><br><span class="line">	res := mailRes&#123;</span><br><span class="line">		code,</span><br><span class="line">		time.Now().Format(time.RFC3339),</span><br><span class="line">		message,</span><br><span class="line">	&#125;</span><br><span class="line">	resJson, _ := json.MarshalIndent(res, <span class="string">""</span>, <span class="string">"  "</span>)</span><br><span class="line">	w.Header().Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</span><br><span class="line"></span><br><span class="line">	_, _ = w.Write(resJson)</span><br><span class="line">	<span class="comment">//_, _ = w.Write([]byte())</span></span><br><span class="line">	<span class="comment">//_, _ = fmt.Fprintf(w, "Hello astaxie!") //这个写入到w的是输出到客户端的</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/webMailTo"</span>, webMailTo) <span class="comment">//设置访问的路由</span></span><br><span class="line">	err := http.ListenAndServe(<span class="string">":40025"</span>, <span class="literal">nil</span>) <span class="comment">//设置监听的端口</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">"ListenAndServe: "</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/stf-一键安装脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1438,161 +1565,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/20180117回复导师论文意见/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="srbjor">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CL">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/17/20180117回复导师论文意见/" itemprop="url">20180117回复导师论文意见</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-17T14:35:17+08:00">
-                2018-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>在SPIA思路的基础上查找新的文献看是否能解决基因在不同pathway上所产生不同贡献的衡量方法，也可以根据新的文献调整我们的研究方向，比如结合转录层面的数据：SNP、CNV、DNA甲基化、PPI等等，或者结合不同网络分析方法；总之要有新的思路和突破口来研究真实的生物过程，方法上和生物学上确实需要多读文章，只有大量读文章了才能知道别人都做了哪些研究，我们具体可以做些什么，哪些适合在我们实验室已有基础上能做。在此基础上我们后续的工作还要研究肿瘤细胞和B细胞(浆细胞)的抗原/抗体产生的过程、免疫反应及其致病过程等等。</p>
-</blockquote>
-<h2 id="一、衡量基因在不同通路上的不同贡献的方法："><a href="#一、衡量基因在不同通路上的不同贡献的方法：" class="headerlink" title="一、衡量基因在不同通路上的不同贡献的方法："></a>一、衡量基因在不同通路上的不同贡献的方法：</h2><ol>
-<li><p>数据库查询，XTALKB的数据库是基于实验的结果建立的数据库，包含了通路之间的串扰信息（受体，中心信号蛋白，转录因子和目标之间的调节和相互作用），通过这个数据库推断不同基因的贡献程度。</p>
-</li>
-<li><p>通路串扰通常发生在一些局部区域，因此可以通过分析基因共表达的相关性来寻找这样的区域，再推断通路串扰网络，从而可以得到不同基因的贡献。</p>
-</li>
-<li></li>
-</ol>
-<h2 id="二、结合转录层面的数据："><a href="#二、结合转录层面的数据：" class="headerlink" title="二、结合转录层面的数据："></a>二、结合转录层面的数据：</h2><ol>
-<li><p>SNP</p>
-<p> SNP Consortium database</p>
-<p> <a href="http://www.hgvs.org/central-mutation-snp-databases" title="SNP数据库" target="_blank" rel="noopener">http://www.hgvs.org/central-mutation-snp-databases</a></p>
-<p> 先看一下这个数据库怎么用，数据形式是什么样子，思考如何和通路串扰相结合。</p>
-</li>
-<li><p>CNV</p>
-<p> 基因拷贝数变异，UCSC有数据库。</p>
-</li>
-<li><p>DNA 甲基化<br> methbank<br> <a href="http://www.dnamethylome.org/" target="_blank" rel="noopener">http://www.dnamethylome.org/</a></p>
-</li>
-<li><p>PPI  蛋白质-蛋白质相互作用<br> 一个比较综合的链接是：A compendium of PPI databases can be found in <a href="http://www.pathguide.org/里面的数据库非常多，仅仅是对于人类就有：" target="_blank" rel="noopener">http://www.pathguide.org/里面的数据库非常多，仅仅是对于人类就有：</a></p>
-<p> Your search returned 207 results in 9 categories with the following search parameters:</p>
-<p> Organisms: Homo sapiens (Human)<br> Availability: Free to all users<br> Standards: all</p>
-<p> 人类的六个主要PPI是：Analysis of human interactome PPI data showing the coverage of six major primary databases (BIND, BioGRID, DIP, HPRD, IntAct, and MINT), according to the integration provided by the meta-database APID.</p>
-<p> BIND    the biomolecular interaction network database    died link</p>
-<p> DIP    the database of interacting proteins<br> <a href="http://dip.doe-mbi.ucla.edu/" target="_blank" rel="noopener">http://dip.doe-mbi.ucla.edu/</a> </p>
-<p> MINT    the molecular interaction database<br> <a href="http://mint.bio.uniroma2.it/mint/" target="_blank" rel="noopener">http://mint.bio.uniroma2.it/mint/</a> </p>
-<p> STRING    Search Tool for the Retrieval of Interacting Genes/Proteins<br> <a href="http://string-db.org/" target="_blank" rel="noopener">http://string-db.org/</a>  </p>
-<p> HPRO    Human protein reference database<br> <a href="http://www.hprd.org/" target="_blank" rel="noopener">http://www.hprd.org/</a> </p>
-<p> BioGRID    The Biological General Repository for Interaction Datasets<br> <a href="http://thebiogrid.org/" target="_blank" rel="noopener">http://thebiogrid.org/</a> </p>
-</li>
-</ol>
-<p>后续先确定数据库中数据形式。</p>
-<h2 id="三、算法结合真实的生物过程："><a href="#三、算法结合真实的生物过程：" class="headerlink" title="三、算法结合真实的生物过程："></a>三、算法结合真实的生物过程：</h2><p>算法结合真实生物过程进行分析。</p>
-<p>后续工作：肿瘤细胞和B细胞(浆细胞)的抗原/抗体产生的过程、免疫反应及其致病过程。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1645,7 +1617,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1658,7 +1630,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
