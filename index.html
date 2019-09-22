@@ -6,7 +6,7 @@
 
 
 <html class="theme-next gemini use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -225,6 +225,125 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/stf-一键安装脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="srbjor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/stf-一键安装脚本/" itemprop="url">stf 一键安装脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-23T00:26:26+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull openstf/stf:latest <span class="comment"># STF镜像</span></span><br><span class="line"></span><br><span class="line">sudo docker pull sorccu/adb:latest <span class="comment"># android adb 镜像</span></span><br><span class="line"></span><br><span class="line">sudo docker pull rethinkdb:latest <span class="comment"># rethinkdb 镜像</span></span><br><span class="line"></span><br><span class="line">sudo docker pull openstf/ambassador:latest</span><br><span class="line"></span><br><span class="line">sudo docker pull nginx:latest <span class="comment"># nginx 代理镜像</span></span><br><span class="line"></span><br><span class="line">docker run -d --name rethinkdb -v /srv/rethinkdb:/data --net host rethinkdb rethinkdb --<span class="built_in">bind</span> all --cache-size 8192 --http-port 8090</span><br><span class="line"></span><br><span class="line"><span class="comment">#再启动adb service</span></span><br><span class="line">docker run -d --name adbd --privileged -v /dev/bus/usb:/dev/bus/usb --net host sorccu/adb:latest</span><br><span class="line"></span><br><span class="line"><span class="comment">#再启动stf 启动的时配置的IP地址为你虚拟机桥接的网址</span></span><br><span class="line">docker run -d --name stf --net host openstf/stf stf <span class="built_in">local</span> --public-ip 192.168.66.41</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -714,10 +833,18 @@
 <p>frp的下载地址和文档在：<a href="https://github.com/fatedier/frp/blob/master/README_zh.md" target="_blank" rel="noopener">fatedier/frp</a></p>
 <p>原理本文不多做叙述，直接给一键脚本。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#默认端口7000</span></span><br><span class="line">mkdir /var/frp</span><br><span class="line"><span class="built_in">cd</span> /var/frp</span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.28.2/frp_0.28.2_linux_amd64.tar.gz</span><br><span class="line">tar -xvf frp_0.28.2_linux_amd64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> frp_0.28.2_linux_amd64</span><br><span class="line">nohup ./frps &amp;</span><br></pre></td></tr></table></figure>
+
 <h3 id="1-1-frp的服务器搭建"><a href="#1-1-frp的服务器搭建" class="headerlink" title="1.1 frp的服务器搭建"></a>1.1 frp的服务器搭建</h3><p>根据对应的操作系统及架构，从 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Release</a> 页面下载最新版本的程序。按照官网教程其实很简单，最简单的配置是单端口配置。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frps.ini</span></span><br><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7000</span></span><br></pre></td></tr></table></figure>
-<p>1. </p>
 
+<ol>
+<li>本机配置文件</li>
+</ol>
+<p>windows</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">101.132</span>.*.*</span><br><span class="line"><span class="comment">#服务器的 IP</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">9991</span> </span><br><span class="line"><span class="comment">#服务器上设置的服务绑定端口</span></span><br><span class="line"></span><br><span class="line"><span class="section">[RDPruby]</span></span><br><span class="line"><span class="attr">type</span> = tcp </span><br><span class="line"><span class="comment">#RDP 是 TCP 协议的</span></span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span> </span><br><span class="line"><span class="comment">#本机 IP</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">3389</span> </span><br><span class="line"><span class="comment">#远程桌面的默认端口</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">9993</span> </span><br><span class="line"><span class="comment">#外网访问的端口</span></span><br></pre></td></tr></table></figure>
+
+<p>linux</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"alias agi='sudo apt install -y'\n"</span> &gt;&gt; ~/.bashrc</span><br><span class="line">. ~/.bashrc</span><br><span class="line"></span><br><span class="line">mkdir document</span><br><span class="line"><span class="built_in">cd</span> document</span><br><span class="line"></span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.29.0/frp_0.29.0_linux_amd64.tar.gz;tar -xvf frp_0.29.0_linux_amd64.tar.gz; mv frp_0.29.0_linux_amd64 frp;<span class="built_in">cd</span> frp</span><br><span class="line"></span><br><span class="line">agi openssh-server</span><br><span class="line"></span><br><span class="line"><span class="comment">#sudo vim /lib/systemd/system/frpc.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="comment">#启动服务的命令（此处写你的frpc的实际安装目录）</span></span><br><span class="line">ExecStart=/home/zmh/program/frp/frpc -c /home/zmh/program/frp/frpc.ini</span><br><span class="line">Restart=on-failure  <span class="comment"># 进程非正常退出时，包括信号终止和超时，会重启服务</span></span><br><span class="line">RestartSec=30s  <span class="comment"># 上面Restart重启之前需要等待42秒再重启</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
           
         
       
@@ -959,8 +1086,10 @@
             <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>go语言使用数据库的管理时使用<code>database/sql package</code>。</p>
 <p>sql.DB作为一个抽象，能让用户不用考虑管理并发访问底层数据库等问题，不过如果用户使用完连接后不释放，会产生大量的连接导致资源耗尽。</p>
 <h1 id="2-导入"><a href="#2-导入" class="headerlink" title="2.导入"></a>2.导入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">	&quot;database/sql&quot;</span><br><span class="line">	_ &quot;github.com/go-sql-driver/mysql&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 <p>使用<code>_别名</code>匿名导入驱动。导入时驱动的初始化函数会调用sql.Register将自己注册在sql包的全局变量sql.Drivers。</p>
 <h1 id="3-访问"><a href="#3-访问" class="headerlink" title="3.访问"></a>3.访问</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	dbw := DbWorker&#123;</span><br><span class="line">		Dsn: &quot;user:password@tcp(127.0.0.1:3306)/test&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">	db, err := sql.Open(&quot;mysql&quot;,</span><br><span class="line">		dbw.Dsn)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		panic(err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	defer db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>sql.Open()用来在加载后创建sql.DB。</p>
 <p>sql.Open有两个参数：</p>
 <p>驱动名称 依赖于特定驱动的写法</p>
@@ -972,9 +1101,11 @@
 </ul>
 <p>每个驱动返回的错误都不一样，用错误字符串来判断错误类型并不是明智的做法，更好的方法是对抽象的错误做Type Assertion，利用驱动提供的更具体的信息来处理错误。当然类型断言也可能产生错误，这也是需要处理的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if err.(pgx.PgError).Code == &quot;0A000&quot; &#123;</span><br><span class="line">   // Do something with that type or error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>rows.Next()会指明是否还有未读取的数据记录，通常用于迭代结果集。迭代中的错误会导致rows.Next()返回false。</p>
 <p>rows.Scan()用于在迭代中获取一行结果。数据库会使用wire protocal通过TCP/UnixSocket传输数据，对Pg而言，每一行实际上对应一条DataRow消息。Scan接受变量地址，解析DataRow消息并填入相应变量中。因为Go语言是强类型的，所以用户需要创建相应类型的变量并在rows.Scan中传入其指针，Scan函数会根据目标变量的类型执行相应转换。</p>
 <h2 id="单行查询："><a href="#单行查询：" class="headerlink" title="单行查询："></a>单行查询：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.QueryRow(&quot;SELECT sum(n) FROM (SELECT generate_series(1,$1) as n) a;&quot;, 10).Scan(&amp;sum)</span><br></pre></td></tr></table></figure>
+
 <h2 id="修改数据："><a href="#修改数据：" class="headerlink" title="修改数据："></a>修改数据：</h2><p>增删改和DDL一般使用Exec，返回结果集合的查询使用Query，但不是绝对的。</p>
 <p>事务：事务是关系型数据库的核心特性。Go中事务（Tx）是一个持有数据库连接的对象，它允许用户在同一个连接上执行上面提到的各类操作。</p>
 <p>准备：(prepare) </p>
@@ -986,8 +1117,7 @@
 <th>Oracle</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>WHERE col = ?</td>
 <td>WHERE col = $1</td>
 <td>WHERE col = :col</td>
@@ -997,8 +1127,7 @@
 <td>VALUES($1, $2, $3)</td>
 <td>VALUES(:val1, :val2, :val3)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h2 id="事务基本操作："><a href="#事务基本操作：" class="headerlink" title="事务基本操作："></a>事务基本操作：</h2><p>通过<code>db.Begin()</code>来开启一个事务，Begin方法会返回一个事务对象Tx。在结果变量Tx上调用Commit()或者Rollback()方法会提交或回滚变更，并关闭事务。在底层，Tx会从连接池中获得一个连接并在事务过程中保持对它的独占。事务对象Tx上的方法与数据库对象sql.DB的方法一一对应，例如Query,Exec等。事务对象也可以准备(prepare)查询，由事务创建的准备语句会显式绑定到创建它的事务。</p>
 <h3 id="事务注意事项"><a href="#事务注意事项" class="headerlink" title="事务注意事项"></a>事务注意事项</h3><ul>
 <li>使用事务对象时，不应再执行事务相关的SQL语句，例如BEGIN,COMMIT等。这可能产生一些副作用：</li>
@@ -1464,149 +1593,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/171023使用PARADIGM学习亚组特异的互相作用和独立性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="srbjor">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CL">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/23/171023使用PARADIGM学习亚组特异的互相作用和独立性/" itemprop="url">使用PARADIGM学习亚组特异的互相作用和独立性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-23T14:28:21+08:00">
-                2017-10-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>又是一种通路分析算法</em></p>
-<h2 id="论文目标：了解细胞信号网络中传播过程的关键通路"><a href="#论文目标：了解细胞信号网络中传播过程的关键通路" class="headerlink" title="论文目标：了解细胞信号网络中传播过程的关键通路"></a>论文目标：了解细胞信号网络中传播过程的关键通路</h2><ol>
-<li>简单的介绍为什么要分析通路</li>
-<li>现有的通路分析方法综述，整合通路的分析方法越来越热门</li>
-<li>优化现有的PARADIGM算法，（数据量较大的时候算法表现差，通过假设特定的概率分布，算法复杂度可随数据大小现行增加。）</li>
-</ol>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
-<li>PARADIGM算法通过在细胞的基因的转录，翻译和蛋白质调节状态过程中添加变量后进行建模。</li>
-</ol>
-<p><img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3694636/bin/btt229f1p.jpg" alt="哈哈"></p>
-<ol start="2">
-<li><ul>
-<li>优化：调整算法中的添加的参数的计算方式。IRM和CRM。<ol>
-<li>CRM：学习了完整的子节点来计算条件概率表</li>
-<li>IRM：假定独立通路的条件概率计算条件概率表</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>使用G检验来决定父子节点间的通路的依赖重要性和不同父节点通路的重要性。</li>
-<li>HOPACH聚类算法寻找合适的数据簇。</li>
-</ol>
-<p><img src="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=3694636_btt229f2p.jpg" alt="聚类分析结果"></p>
-<h2 id="数据来源介绍和预处理"><a href="#数据来源介绍和预处理" class="headerlink" title="数据来源介绍和预处理"></a>数据来源介绍和预处理</h2><h2 id="生物学分析"><a href="#生物学分析" class="headerlink" title="生物学分析"></a>生物学分析</h2><h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><p>条件独立性的假设降低了模型复杂度。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1659,7 +1645,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1672,7 +1658,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
