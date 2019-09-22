@@ -239,6 +239,285 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/180103通路串扰相关论文阅读小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="srbjor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/22/180103通路串扰相关论文阅读小结/" itemprop="url">180103通路串扰相关论文阅读小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-22T14:32:24+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="全局路径串扰网络-A-global-pathway-crosstalk-network"><a href="#全局路径串扰网络-A-global-pathway-crosstalk-network" class="headerlink" title="全局路径串扰网络 A global pathway crosstalk network"></a>全局路径串扰网络 A global pathway crosstalk network</h1><h2 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h2><p>鉴于生物系统的复杂性，生物的生理反应常常是通过协调发挥作用的，因此理解通路直接的相互作用和串扰，对于理解细胞和更复杂的系统显得极其重要。此文构建了一个哺乳动物的全局通路串扰网络，并且此网络遵循幂律分布：</p>
+<p>p(k)~k^(-γ),γ=1.45</p>
+<p>一般说来，从大数据量的基因列表中提取潜在的生物学信息的一种方法是识别这些列表中显著改变的通路。而分析通路又分为两种方法，一种是从统计学意义上使用超几何分布估算，另一种是采用了非参数方法来确定微阵列实验中的通路，来确定是否发生了显著改变。</p>
+<p>除了基因表达谱以外，蛋白质-蛋白质相互作用也提供了基因如何执行器生物学功能的有用信息。通过建立蛋白质的全局相互作用网络，可以解释细胞存货和生长所必需的的整体组织和相互作用。</p>
+<p>已经使用过类似方法的文章：</p>
+<p>Genome-wide protein–protein interaction screenings based on yeast two-hybrid technique have been performed in budding yeast (Uetz et al., 2000), fruit fly (Giot et al., 2003), worm (Li et al., 2004), human (Stelzl et al., 2005) and other organisms. On the other hand, literature-based curation and data-mining processes have also generated substantial amounts of protein interaction data (Rajagopalan and Agarwal, 2005; Ramani et al., 2005). Network-based methods have been used to analyze these interaction data and gain insights into the mechanism by which biological systems operate (Barabasi and Oltvai, 2004; Xia et al., 2004).</p>
+<p>此文采取了一种计算方法，通过系统地结合通路数据和交互网络数据来探索通路相互作用。该方法基于这样的假设：如果在这两条通路之间检测到显着更多的蛋白质相互作用，高于随机发生的相互作用或相互影响，即认为该通路间发生了串扰。此文展示如何建立一个基于串扰的通路网络，并基于基因表达谱数据将其应用于进一步了解结直肠癌的发展和转移。</p>
+<h2 id="分析方法："><a href="#分析方法：" class="headerlink" title="分析方法："></a>分析方法：</h2><p>这篇文章的方法比较古老，第一步是搜集通路数据和蛋白质相互作用数据，基本上都是从网络上下载，做了一些基本的预处理：如删掉所含基因过少的通路。</p>
+<h3 id="2-3-路径串扰网络的构建"><a href="#2-3-路径串扰网络的构建" class="headerlink" title="2.3 路径串扰网络的构建"></a>2.3 路径串扰网络的构建</h3><p>去除含有少于 5 个基因或超过 100 个基因的通路来产生一组串扰分析通路。基因过多的通路可能过于一般，基因太少的通路可能没有足够的生物学内容。这些大小的临界值是任意设置的。<br>通过执行 Fisher Exact 测试评估任何给定的一对通路之间的基因重叠。<br>计算任何两个通路之间的蛋白质相互作用的数量。对于每个通路对，首先去除两条通路共有的基因，然后计算这两条通路之间的所有蛋白质相互作用。<br>估计每个通路对的蛋白质相互作用计数的背景分布。每条通路如下随机化：浏览给定路径中的所有基因。如果一个基因没有任何相互作用，就跳过它。如果一个基因有相互作用，首先计算它与之相互作用的基因的数量，然后从与相同或相似数目的基因相互作用的蛋白质相互作用数据集中随机抽取一个基因，并用这个新选择的基因取代原始通路基因。一旦两条通路被随机化，则执行步骤 3 以计算它们之间的相互作用的次数。该随机化步骤重复 1000 次。<br>使用包含以下数字的 2×2 列联表进行所有通路对的单侧 Fisher 精确检验：n，N - n，r，R - r 其中 n 表示原始通路之间的相互作用计数，N 表示 r 表示所有通路对的总相互作用计数，r 表示经过 1000 轮随机化后相应随机化通路对之间的相互作用计数的平均值，R 表示所有随机化通路对在 1000 轮随机化之后的总相互作用计数的平均值。零假设是两条通路与所有相互作用之间真实相互作用的比率（n /N）与随机相互作用与所有随机相互作用的比率（r /R）相同。在我们的分析中，我们只关注 n / N 显着高于 r / R 的通路对。Fisher 精确检验使用 FDR BH 程序（1995 年的算法）调整 P 值，以说明多重假设检验。我们还使用第二种方法来评估两种通路之间相互作用计数的重要性。具体而言，我们将真正的相互作用的数量与在相同通路对上进行的 1000 个排列的随机相互作用计数进行排序。经验 P 通过计算随机交互计数高于或等于真实交互计数的置换数目，然后将该数目除以置换总数计算值。Fisher 精确检验 P-值和经验 P-值非常好地相关（数据未显示）。<br>将调整后的 Fisher 精确检验 P 值 P&lt;0.05 的所有通路对拉到一起以构建网络，其中节点是通路，边表示两个通路之间的串扰。在下面的修剪步骤中，删除了在某些路径中由于基因冗余而导致的两种“冗余”边缘，以清理网络。<br>(a)在步骤 2 中鉴定的具有显着基因重叠的两条通路之间的所有边缘被认为是不具有信息性的，因此从网络中移除。请注意，我们的目的是发现不同生物活动之间的串扰。两个通路在基因成员方面彼此显着重叠的通路对代表相似的生物学，因此被排除在网络之外。<br>（b）两条重叠的通路可能都与相同的通路相互作用。在这种情况下，两条边被认为是多余的，其中一条被删除。例如，通路 A 具有四个邻居：边 B，C，D 和 E。如果 B 中至少 75％的基因也在 C 中，并且 B 具有比 C 更少的基因数量，则 A 和 B 之间的边缘被去除。重复这个过程，直到路径 A 和它的邻居之间不再有更多的边缘可以被删除。这个步骤对于从 GO 获得的通路是特别必要的，其中所有的儿童基因组都是父母的完整子集。如果小孩和父母的 GO 通路都与通路 A 相互作用，则在修剪过程中， A 和子 GO 通路之间的边缘将被移除。</p>
+<h3 id="2-4-网络聚类"><a href="#2-4-网络聚类" class="headerlink" title="2.4 网络聚类"></a>2.4 网络聚类</h3><p>通路串扰网络 PCN 中的通路基于其最短路径分布进行聚类。简言之，任何给定的一对通路之间的最短路径（SP）是使用标准的基于图形的程序来计算的。两条路径之间的距离（d）被定义为它们之间的 SP 的长度。使用简单的转化（1 / d）来产生在 0 和 1 范围内的所有通路对的相似性分数.1 / d 之间的路径和本身设置为 1。然后使用进行分层凝聚平均链接聚类。聚类结果在沿对角线对称的热图中查看（自我关联）。较深的颜色表示两个路径在 SP 长度方面接近。</p>
+<h3 id="2-5-通路簇的富集分析。"><a href="#2-5-通路簇的富集分析。" class="headerlink" title="2.5 通路簇的富集分析。"></a>2.5 通路簇的富集分析。</h3><h3 id="2-6-使用-PCN-进行微阵列数据分析"><a href="#2-6-使用-PCN-进行微阵列数据分析" class="headerlink" title="2.6 使用 PCN 进行微阵列数据分析"></a>2.6 使用 PCN 进行微阵列数据分析</h3><p>最近打算继续做网络分析的算法创新，上一次汇报的时候分析过很多通路分析的优缺点，此外在邓学长给我的论文里面也有提到，A novel dysregulated pathway-identification analysis based on global influence of within-pathway effects and crosstalk between pathways，SPIA 中的 p 值并不能准确的衡量通路的重要程度，在定为 0.05 的时候还是漏掉了很多重要的通路，因此网络分析其实很适合用作这一块的分析。</p>
+<p>网络分析的优点就在于可以避免通路里面很多冗余基因带来的无效信息，而且随着现在计算机的性能发展（实在不行的话也可用服务器来算），以前可能难以实现的算法或者效率低下的算法，现在应该可以跑出结果。</p>
+<p>还是上一次汇报的时候曾经简要的介绍过网络分析的相关算法介绍，但是当时只是搜集整理的资料，试了一下其中的 GANPA 算法，但是 RStudio 出了一些奇怪的问题，将继续进行调试。另外听学长讲了随机游走的算法，这个算法生信网络分析中应用非常广泛，因此可以继续就此深究下去。</p>
+<p>我搜索了网络分析在生物信息这一块的应用，发现网络的方法还真的不多。基于网络的算法文章本身不多，即使有使用了网络算法大多也是根据需要设计的算法，再结合其他的已有的工具进行分析得到想要的结果。例如我最近在看的这篇文章 Identification of GRB2 and GAB1 Coexpression as an Unfavorable Prognostic Factor for Hepatocellular Carcinoma by a Combination of Expression Profile and Network Analysis 里，通过分析肝细胞癌的数据，建立了蛋白质网络，通过分析三个度量标准：网络的度，相关性和亲密度，以及 k 核心算法筛选在肝癌细胞中的重要候选标志物。</p>
+<p>PS：继续研究纯算法，补充学习生信知识。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/171026Summary-of-20161026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="srbjor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/22/171026Summary-of-20161026/" itemprop="url">Summary of 20161026</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-22T14:30:42+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>Finally tided the thinking of SPIA.<ol>
+<li>Pnde&amp;Ppert</li>
+<li>Read the source code and picked the weights part, translated them to chinese.</li>
+<li>Bugged the code and analysed the result of the code.</li>
+</ol>
+</li>
+<li>Participate a lecture–concepts of fuzzy sets and rough sets, and wrote summary of it.</li>
+<li>Beated FSJ down completely in the tablebannis game today, hah hah.</li>
+</ol>
+<p>#Todos</p>
+<ol>
+<li><p>SPIA: The exact meaning of DE_Colorectal, and how can it be extracted from X.(Before November)</p>
+</li>
+<li><p>*Review Matrix Theory(notes &amp; ppts)</p>
+</li>
+<li><p>Prepare for the electronic design contest(DL: this year)</p>
+<ol>
+<li>Ask for advices from YMC &amp;SZL</li>
+<li>Collect enough components for the programme</li>
+<li>Write down the ideas and learn from previous Awarded Opus</li>
+</ol>
+</li>
+<li><p>*Confirm the main title of MNEA</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1043,7 +1322,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/08/电赛构思/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/20180117回复导师论文意见/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="srbjor">
@@ -1062,7 +1341,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/08/电赛构思/" itemprop="url">研究生电子设计大赛构思</a></h1>
+                <a class="post-title-link" href="/2018/01/17/20180117回复导师论文意见/" itemprop="url">20180117回复导师论文意见</a></h1>
         
 
         <div class="post-meta">
@@ -1074,8 +1353,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-08T18:58:25+08:00">
-                2017-10-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-17T14:35:17+08:00">
+                2018-01-17
               </time>
             
 
@@ -1114,31 +1393,185 @@
       
         
           
-            <h1 id="电子设计大赛-题目构思"><a href="#电子设计大赛-题目构思" class="headerlink" title="电子设计大赛 题目构思"></a>电子设计大赛 题目构思</h1><p>以现在的想法，基于ROV拟了几个题目（待细化了之后分析一下优劣）：</p>
-<ol>
-<li><p>水下污染检测与污染源定位（自动巡航）系统的设计</p>
-</li>
-<li><p>国土安全监测与反制系统设计（异常移动目标检测）</p>
-</li>
-<li><p>水下搜索与救援（热感应识别，声波识别）</p>
-</li>
-</ol>
-<p>寒假需要学习的知识：</p>
-<ol>
-<li><p>OpenROV的组成结构以及控制系统设计（这个我前几天找了一下没有找到相关的中文资料）</p>
-</li>
-<li><p>能将OpenROV通电运行，设计简单的蛇舞能在水下运动，比如上下左右拍照等操作。</p>
-</li>
-<li><p>整理学习水下机器人动力学数学模型等相关知识。</p>
-</li>
-<li><p>最后如果还有空余时间，可以开始确定我们的课题，并着手方案设计（设计三套取其最优）</p>
-</li>
-</ol>
-<p>参考文献：15曾有获奖文章 ：水下结构安全检测与清污机器人ROV控制系统设计（一等奖）（江苏科技大学）<br>论文只找到了发表在江苏科技大学学报上面的一篇文章：<br>《海洋工程水下结构检测与清污机器人控制系统研究》</p>
-<p>Abstract：</p>
-<blockquote>
-<p>针对自主研发的水下检测与清污机器人设计了一套控制系统．该系统分水面控制系统和水下控制系统两大部分，水面控制系统主要包括PC机、控制箱、脐带缆、控制摇杆等设备．水下控制系统包括嵌入式微控制器、视觉照明模块、安全保护模块、传感器模块、运动模块、供电模块等部分．并对控制系统的软件硬件进行了设计，建立了纵向和艏向动力学模型，根据ＲＯＶ结构、功能特点等简化模型；设计了一种新颖的结合PID控制的约束输入输出的直接广义预测控制算法，并对水下机器人的艏向和纵向运动展开研究．仿真结果表明，该算法具有稳定性好、自适应强等优点，具有良好的控制效果．</p>
+            <blockquote>
+<p>在SPIA思路的基础上查找新的文献看是否能解决基因在不同pathway上所产生不同贡献的衡量方法，也可以根据新的文献调整我们的研究方向，比如结合转录层面的数据：SNP、CNV、DNA甲基化、PPI等等，或者结合不同网络分析方法；总之要有新的思路和突破口来研究真实的生物过程，方法上和生物学上确实需要多读文章，只有大量读文章了才能知道别人都做了哪些研究，我们具体可以做些什么，哪些适合在我们实验室已有基础上能做。在此基础上我们后续的工作还要研究肿瘤细胞和B细胞(浆细胞)的抗原/抗体产生的过程、免疫反应及其致病过程等等。</p>
 </blockquote>
+<h2 id="一、衡量基因在不同通路上的不同贡献的方法："><a href="#一、衡量基因在不同通路上的不同贡献的方法：" class="headerlink" title="一、衡量基因在不同通路上的不同贡献的方法："></a>一、衡量基因在不同通路上的不同贡献的方法：</h2><ol>
+<li><p>数据库查询，XTALKB的数据库是基于实验的结果建立的数据库，包含了通路之间的串扰信息（受体，中心信号蛋白，转录因子和目标之间的调节和相互作用），通过这个数据库推断不同基因的贡献程度。</p>
+</li>
+<li><p>通路串扰通常发生在一些局部区域，因此可以通过分析基因共表达的相关性来寻找这样的区域，再推断通路串扰网络，从而可以得到不同基因的贡献。</p>
+</li>
+<li></li>
+</ol>
+<h2 id="二、结合转录层面的数据："><a href="#二、结合转录层面的数据：" class="headerlink" title="二、结合转录层面的数据："></a>二、结合转录层面的数据：</h2><ol>
+<li><p>SNP</p>
+<p> SNP Consortium database</p>
+<p> <a href="http://www.hgvs.org/central-mutation-snp-databases" title="SNP数据库" target="_blank" rel="noopener">http://www.hgvs.org/central-mutation-snp-databases</a></p>
+<p> 先看一下这个数据库怎么用，数据形式是什么样子，思考如何和通路串扰相结合。</p>
+</li>
+<li><p>CNV</p>
+<p> 基因拷贝数变异，UCSC有数据库。</p>
+</li>
+<li><p>DNA 甲基化<br> methbank<br> <a href="http://www.dnamethylome.org/" target="_blank" rel="noopener">http://www.dnamethylome.org/</a></p>
+</li>
+<li><p>PPI  蛋白质-蛋白质相互作用<br> 一个比较综合的链接是：A compendium of PPI databases can be found in <a href="http://www.pathguide.org/里面的数据库非常多，仅仅是对于人类就有：" target="_blank" rel="noopener">http://www.pathguide.org/里面的数据库非常多，仅仅是对于人类就有：</a></p>
+<p> Your search returned 207 results in 9 categories with the following search parameters:</p>
+<p> Organisms: Homo sapiens (Human)<br> Availability: Free to all users<br> Standards: all</p>
+<p> 人类的六个主要PPI是：Analysis of human interactome PPI data showing the coverage of six major primary databases (BIND, BioGRID, DIP, HPRD, IntAct, and MINT), according to the integration provided by the meta-database APID.</p>
+<p> BIND    the biomolecular interaction network database    died link</p>
+<p> DIP    the database of interacting proteins<br> <a href="http://dip.doe-mbi.ucla.edu/" target="_blank" rel="noopener">http://dip.doe-mbi.ucla.edu/</a> </p>
+<p> MINT    the molecular interaction database<br> <a href="http://mint.bio.uniroma2.it/mint/" target="_blank" rel="noopener">http://mint.bio.uniroma2.it/mint/</a> </p>
+<p> STRING    Search Tool for the Retrieval of Interacting Genes/Proteins<br> <a href="http://string-db.org/" target="_blank" rel="noopener">http://string-db.org/</a>  </p>
+<p> HPRO    Human protein reference database<br> <a href="http://www.hprd.org/" target="_blank" rel="noopener">http://www.hprd.org/</a> </p>
+<p> BioGRID    The Biological General Repository for Interaction Datasets<br> <a href="http://thebiogrid.org/" target="_blank" rel="noopener">http://thebiogrid.org/</a> </p>
+</li>
+</ol>
+<p>后续先确定数据库中数据形式。</p>
+<h2 id="三、算法结合真实的生物过程："><a href="#三、算法结合真实的生物过程：" class="headerlink" title="三、算法结合真实的生物过程："></a>三、算法结合真实的生物过程：</h2><p>算法结合真实生物过程进行分析。</p>
+<p>后续工作：肿瘤细胞和B细胞(浆细胞)的抗原/抗体产生的过程、免疫反应及其致病过程。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/171023使用PARADIGM学习亚组特异的互相作用和独立性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="srbjor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006bxdzhly1g6c5b2w75tj308d08c400.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/171023使用PARADIGM学习亚组特异的互相作用和独立性/" itemprop="url">使用PARADIGM学习亚组特异的互相作用和独立性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-23T14:28:21+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>又是一种通路分析算法</em></p>
+<h2 id="论文目标：了解细胞信号网络中传播过程的关键通路"><a href="#论文目标：了解细胞信号网络中传播过程的关键通路" class="headerlink" title="论文目标：了解细胞信号网络中传播过程的关键通路"></a>论文目标：了解细胞信号网络中传播过程的关键通路</h2><ol>
+<li>简单的介绍为什么要分析通路</li>
+<li>现有的通路分析方法综述，整合通路的分析方法越来越热门</li>
+<li>优化现有的PARADIGM算法，（数据量较大的时候算法表现差，通过假设特定的概率分布，算法复杂度可随数据大小现行增加。）</li>
+</ol>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
+<li>PARADIGM算法通过在细胞的基因的转录，翻译和蛋白质调节状态过程中添加变量后进行建模。</li>
+</ol>
+<p><img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3694636/bin/btt229f1p.jpg" alt="哈哈"></p>
+<ol start="2">
+<li><ul>
+<li>优化：调整算法中的添加的参数的计算方式。IRM和CRM。<ol>
+<li>CRM：学习了完整的子节点来计算条件概率表</li>
+<li>IRM：假定独立通路的条件概率计算条件概率表</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>使用G检验来决定父子节点间的通路的依赖重要性和不同父节点通路的重要性。</li>
+<li>HOPACH聚类算法寻找合适的数据簇。</li>
+</ol>
+<p><img src="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=3694636_btt229f2p.jpg" alt="聚类分析结果"></p>
+<h2 id="数据来源介绍和预处理"><a href="#数据来源介绍和预处理" class="headerlink" title="数据来源介绍和预处理"></a>数据来源介绍和预处理</h2><h2 id="生物学分析"><a href="#生物学分析" class="headerlink" title="生物学分析"></a>生物学分析</h2><h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><p>条件独立性的假设降低了模型复杂度。</p>
 
           
         
@@ -1177,6 +1610,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1222,7 +1659,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
